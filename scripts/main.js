@@ -5,9 +5,69 @@ let cuadros = [];
 let nivel = 2;
 let vidas = 3;
 let perdiste = true;
+let user = '';
 $('.nivel').html(`Nivel: ${nivel - 1}`);
+function ingresar() {
+    let username = document.querySelector('.username');
+    if (username.value.trim() == "" || username == null) {
+        $('.mensaje-ingreso').css('display', 'block');
+
+    } else {
+        user = username.value;
+        $('.toggle').css('display', 'none');
+        localStorage.setItem('user', user);
+        $('.user-icon').html(user);
+    }
+}
+function obtenerDatos() {
+    $('.puntuacion').html('');
+    db.collection("Usuarios").get().then((querySnapshot) => {
+        let usuarios = [];
+        querySnapshot.forEach((doc) => {
+            usuarios.push({
+                id: doc.id,
+                nombre: doc.data().nombre,
+                puntuacion: doc.data().puntuacion
+            });
+        });
+        usuarios.sort(function (a, b) {
+            return b.puntuacion - a.puntuacion;
+        });
+        if (usuarios.length >= 50) {
+            for (let i = 0; i < 50; i++) {
+                $('.puntuacion').append(`
+                <tr class="user">
+                    <td>${i + 1}</td>
+                    <td>${usuarios[i].nombre}</td>
+                    <td>${usuarios[i].puntuacion}</td>
+                </tr>
+                `);
+            }
+        } else {
+            for (let i = 0; i < usuarios.length; i++) {
+                $('.puntuacion').append(`
+                <tr class="user">
+                    <td>${i + 1}</td>
+                    <td>${usuarios[i].nombre}</td>
+                    <td>${usuarios[i].puntuacion}</td>
+                </tr>
+                `);
+            }
+        }
+    }).catch((error) => {
+        console.error("Error obteniendo los documentos: ", error);
+    });
+}
+
+obtenerDatos();
 
 function loadMatriz() {
+    if (localStorage.getItem('user')) {
+        $('.toggle').css('display', 'none');
+        user = localStorage.getItem('user');
+        $('.user-icon').html(`${user}`);
+    }
+
     $('.tabla').html('');
     vidas = 3;
     let id = 0;
@@ -64,7 +124,6 @@ function pintarMatriz() {
                 $('.mensaje').html('Ahora tu...');
                 $('.celda').removeClass('tono');
                 empezar = true;
-                console.log(cuadros);
             }, 1000);
         }
 
@@ -88,6 +147,21 @@ function reiniciarValores() {
     $('.celda').removeClass('tono');
     $('.vidas').html(`Tienes ${vidas} vidas`);
 }
+function guardarPuntuacion() {
+    db.collection("Usuarios").where("nombre", "==", user)
+        .get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                editarDatos(querySnapshot.docs[0].id, user, nivel - 2);
+            } else {
+                agregarDatos(user, nivel - 2);
+            }
+        })
+        .catch((error) => {
+            console.log("Error obteniendo los documentos: ", error);
+        });
+}
+
 for (let i = 0; i < celdas.length; i++) {
     celdas[i].addEventListener('click', () => {
         if (empezar) {
@@ -97,7 +171,7 @@ for (let i = 0; i < celdas.length; i++) {
                 $('.celda').removeClass('error');
                 if (numClick >= nivel) {
                     setTimeout(() => {
-                        $('.mensaje').html('Bien Ganaste :)');
+                        $('.mensaje').html('Bien hecho');
                         reiniciarValores();
                         $('.boton').html('Siguiente nivel');
                         perdiste = false;
@@ -107,11 +181,14 @@ for (let i = 0; i < celdas.length; i++) {
                 $(celdas[i]).addClass('error');
                 if (vidas <= 0) {
                     reiniciarValores();
-                    $('.mensaje').html('Perdiste wey :(');
+                    $('.mensaje').html('Perdiste');
                     $('.boton').html('Volver a intentarlo');
+
+                    guardarPuntuacion();
+                    obtenerDatos();
+                    alert('Perdiste, tu puntuación se ha guardado');
                     perdiste = true;
                     vidas++;
-                    nivel = 3;
                 }
                 vidas--;
                 $('.vidas').html(`Tienes ${vidas} vidas`);

@@ -16,6 +16,10 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
             rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Memory game</title>
     </head>
 
@@ -27,7 +31,10 @@
             <div class="container d-flex justify-content-between
                 align-items-center">
                 <h3>MemoryGame</h3>
-                <span class="nivel">Nivel</span>
+                <div class="d-flex align-items-center">
+                    <span class="nivel me-5">Nivel</span>
+                    <div class="user-icon"></div>
+                </div>
             </div>
         </nav>
         <div class="container">
@@ -52,28 +59,56 @@
                         <button class="btn-help" onclick="quitarAyuda()">Lo
                             tengo</button>
                     </div>
-                </div>
-
-                <div class="col-md-4">
                     <button class="boton boton-animacion mt-3"
                         onclick="pintarMatriz()">Iniciar</button>
-
+                    <br>
                     <br>
                     <div class="box-mensaje">
                         <p class="mensaje"></p>
                     </div>
                 </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <span>Tabla de puntuación</span>
+                    <div class="tabla-contenedor">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <td>Orden</td>
+                                    <td>Nombre</td>
+                                    <td>Puntuación</td>
+                                </tr>
+                            </thead>
+                            <tbody class="puntuacion">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="toggle">
+            <div class="box">
+                <p class="text-center">Ingresa tu nombre</p>
+                <input type="text" placeholder="Ejemplo: Juan.."
+                    class="username">
+                <p class="mensaje-ingreso">Debe ingresar su nombre</p>
+                <button onclick="ingresar()">Aceptar</button>
+            </div>
+        </div>
+        <script
+            src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+        <script
+            src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+        <script src="./scripts/init-firebase.js"></script>
 
         <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
         <script src="./scripts/main.js"></script>
+
     </body>
 
 </html>

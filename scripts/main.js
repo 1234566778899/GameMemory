@@ -156,6 +156,7 @@ function guardarPuntuacion() {
             } else {
                 agregarDatos(user, nivel - 2);
             }
+        obtenerDatos();
         })
         .catch((error) => {
             console.log("Error obteniendo los documentos: ", error);
@@ -185,7 +186,7 @@ for (let i = 0; i < celdas.length; i++) {
                     $('.boton').html('Volver a intentarlo');
 
                     guardarPuntuacion();
-                    obtenerDatos();
+                    
                     alert('Perdiste, tu puntuación se ha guardado');
                     perdiste = true;
                     vidas++;

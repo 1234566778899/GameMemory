@@ -103,13 +103,6 @@ nav {
     margin-left: 10px;
 }
 
-.box-mensaje {
-    display: flex;
-    align-items: center;
-    height: 200px;
-    width: 100%;
-}
-
 .vidas {
     font-size: 12px;
 }
@@ -126,4 +119,104 @@ nav {
 .btn-help:hover {
     background-color: white;
     color: black;
+}
+
+.table {
+    border: 1px solid white;
+    color: white;
+}
+
+.user:hover {
+    background-color: #3A3B3C;
+}
+
+.tabla-contenedor {
+    max-height: 500px;
+    overflow-y: auto;
+    display: block;
+}
+
+.toggle {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.box {
+    padding: 15px;
+    color: #18191A;
+    background-color: white;
+    width: 300px;
+    box-shadow: 0px 0px 5px 5px rgba(252, 250, 254, 0.3);
+}
+
+.box input {
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+
+.box input:focus {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.box button {
+    width: 100%;
+    border: 1px solid black;
+    background-color: transparent;
+    padding: 5px;
+    background-color: #18191A;
+    color: white;
+    transition: background-color 0.5s ease;
+}
+
+.box button:hover {
+    background-color: #202021;
+}
+
+.mensaje-ingreso {
+    font-size: 12px;
+    display: none;
+}
+
+/* Esto cambiará el color de fondo de la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 8px;
+    /* Anchura de la barra de desplazamiento */
+    background: #f5f5f5;
+    /* Color de fondo de la barra */
+}
+
+/* Esto cambiará el color del pulgar (la parte móvil) de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color del pulgar */
+    border-radius: 10px;
+    /* Redondeo de los bordes del pulgar */
+}
+
+/* Cambiará el color del pulgar cuando se pasa el ratón por encima */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color del pulgar en hover */
+}
+.user-icon{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #3A3B3C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }

@@ -128,7 +128,7 @@ function pintarMatriz() {
         }
 
     }, 1500);
-
+//hola
 }
 function cerrarAlerta() {
     $('.alerta').addClass('alerta-close');
